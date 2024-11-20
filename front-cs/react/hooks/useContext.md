@@ -53,7 +53,7 @@ function Button(){
 
 > context 를 `Button` 에 전달하려면 해당 버튼 또는 상위 컴포넌트 중 하나를 해당 context provider 로 감쌉니다.
 
-```
+```javascript
 function MyPage(){
     return (
         <ThemeContext.Provider value="dark">
@@ -108,4 +108,19 @@ function MyPage(){
 ```javascript
 const ThemeContext = createContext(null);
 ```
->기본값은 절대 변경되지 않습니다. context를 업데이트하려면 앞서 설명된 대로 state를 사용하세요
+> 기본값은 절대 변경되지 않습니다. context를 업데이트하려면 앞서 설명된 대로 state를 사용하세요
+
+> null 대신 기본값으로 사용할 수 있는 더 의미있는 값이 있는 경우가 많습니다.
+
+```javascript
+const ThemeContext = createContext('light');
+```
+
+> 이렇게 하면 실수로 해당 provider 없이 일부 컴포넌트를 렌더링해도 중단되지 않습니다. 또한 테스트 환경에서 많은 provider 를 설정하지 않고도 테스트 환경에서 잘 작동하는 데 도움이 됩니다.
+
+> 아래 예시에서 '테마 전환' 버튼은 테마 **context provider 외부에 있고 ** 기본 context 테마 값이 'light' 이므로 항상 밝게 표시됩니다. 
+
+
+### 트리 일부에 대한 context 재정의하기
+
+> 트리의 일부분을 다른 값의 provider로 감싸 해당 부분에 대한 context를 재정의할 수 있습니다.
